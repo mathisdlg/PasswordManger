@@ -20,7 +20,7 @@ def getAuthorize(opt: dict): # TODO: Optimize the creation of the list
         for i in range(0, 10):
             authorized.append(str(i))
     if opt["special"]:
-        for char in "!#$%&+-./:;<=>?@[\\]_{|}~":
+        for char in "!#$%&+-./:;<=>?@[]_{|}~":
             authorized.append(str(char))
         
     if opt["new"] != None:
@@ -50,7 +50,7 @@ if __name__ == "__main__":
         "new": None,
     }
     listPassword = []
-    for i in range(1000000):
+    for i in range(1000):
         listPassword.append(passwordGenerator(opt))
     
     print("Password generated")
