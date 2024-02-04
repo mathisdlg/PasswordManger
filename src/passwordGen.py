@@ -9,7 +9,7 @@
 import random as rnd
 
 
-def getAuthorize(opt: dict): # TODO: Optimize the creation of the list
+def getAuthorize(opt: dict):
     authorized = []
 
     for char in range(97, 123):
@@ -17,11 +17,9 @@ def getAuthorize(opt: dict): # TODO: Optimize the creation of the list
         authorized.append(chr(char).upper())
 
     if opt["numbers"]:
-        for i in range(0, 10):
-            authorized.append(str(i))
+        authorized += [ str(i) for i in range(0, 10)]
     if opt["special"]:
-        for char in "!#$%&+-./:;<=>?@[]_{|}~":
-            authorized.append(str(char))
+        authorized += [ char for char in "!#$%&+-./:;<=>?@[]_{|}~"]
         
     if opt["new"] != None:
         for cahr in opt["new"]:
@@ -31,9 +29,8 @@ def getAuthorize(opt: dict): # TODO: Optimize the creation of the list
     return authorized
 
 
-def passwordGenerator(opt: dict):
+def passwordGenerator(authorized: list):
     password = ""
-    authorized = getAuthorize(opt)
 
     for i in range(opt["length"]):
         password += rnd.choice(rnd.choice(authorized))
@@ -50,8 +47,10 @@ if __name__ == "__main__":
         "new": None,
     }
     listPassword = []
-    for i in range(1000):
-        listPassword.append(passwordGenerator(opt))
-    
+    authorized = getAuthorize(opt)
+
+    for i in range(100000):
+        listPassword.append(passwordGenerator(authorized))
+
     print("Password generated")
     print(listPassword)
